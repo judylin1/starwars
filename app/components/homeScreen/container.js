@@ -17,6 +17,7 @@ const propTypes = {
   loadingFilmList: PropTypes.bool,
   filmList: PropTypes.array,
   history: PropTypes.object,
+  loadingEpisode: PropTypes.bool,
 };
 
 class HomeScreen extends Component {
@@ -45,6 +46,7 @@ class HomeScreen extends Component {
     const {
       loadingFilmList,
       filmList,
+      loadingEpisode,
     } = this.props;
 
     return (
@@ -79,6 +81,7 @@ class HomeScreen extends Component {
                           label={`Go To ${filmTitle}`}
                           className="film-button"
                           onClick={() => this.goToEpisode(filmId)}
+                          disabled={loadingEpisode}
                         />
                       </div>
                     </div>
@@ -92,7 +95,8 @@ class HomeScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ homeScreen }) => ({
+const mapStateToProps = ({ homeScreen, episode }) => ({
+  loadingEpisode: episode.get('loadingEpisode'),
   loadingFilmList: homeScreen.get('loadingFilmList'),
   filmList: homeScreen.get('filmList').toJS(),
 });
